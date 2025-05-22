@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PlagNet</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(to right, #6a11cb, #2575fc);
+      color: white;
+      min-height: 100vh;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 50px;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      font-size: 2rem;
+      font-weight: 700;
+      color: white;
+    }
+
+    .navbar {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 25px;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: white;
+      font-weight: 500;
+      font-size: 1rem;
+      transition: color 0.3s ease;
+    }
+
+    nav ul li a:hover {
+      color: #ffd700;
+    }
+
+    .auth-buttons {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .btn-login {
+      background-color: transparent;
+      color: white;
+      border: 2px solid white;
+    }
+
+    .btn-login:hover {
+      background-color: white;
+      color: #2575fc;
+    }
+
+    .btn-register {
+      background-color: #ffd700;
+      color: #333;
+    }
+
+    .btn-register:hover {
+      background-color: #e6c200;
+    }
+
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 100px 30px;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      color: white;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      max-width: 700px;
+      line-height: 1.6;
+    }
+
+    .btn-start {
+      margin-top: 30px;
+      background-color: #ffd700;
+      color: #333;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn-start:hover {
+      background-color: #e6c200;
+    }
+
+    .btn-start a {
+      color: #333;
+      text-decoration: none;
+    }
+
+    /* About Section */
+    .about {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 70px 50px;
+      gap: 50px;
+      color: white;
+      background: rgba(255, 255, 255, 0.05);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(8px);
+    }
+
+    .about-left {
+      flex: 1;
+    }
+
+    .about-title {
+      font-size: 3.5rem;
+      font-weight: 700;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .about-line {
+      color: white;
+    }
+
+    .highlight {
+      background: linear-gradient(to right, #ffd700, #ff8800);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .underline {
+      height: 5px;
+      width: 120px;
+      background: #ffd700;
+      border-radius: 10px;
+      margin-top: 10px;
+      transition: transform 0.4s ease;
+    }
+
+    .hover-area:hover .underline {
+      transform: translateX(40px);
+    }
+
+    .about-right {
+      flex: 2;
+      font-size: 1.15rem;
+      line-height: 1.8;
+      color: #e0e0ff;
+    }
+
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        width: 100%;
+      }
+
+      nav ul {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .auth-buttons {
+        flex-direction: column;
+        width: 100%;
+        align-items: flex-start;
+      }
+
+      .hero h1 {
+        font-size: 2.2rem;
+      }
+
+      .hero p {
+        font-size: 1rem;
+      }
+
+      .about {
+        flex-direction: column;
+        padding: 50px 30px;
+      }
+
+      .about-title {
+        font-size: 2.5rem;
+      }
+
+      .about-right {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">PlagNet</div>
+    <div class="navbar">
+      <nav>
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="auth-buttons">
+        <button class="btn btn-login">Login</button>
+        <button class="btn btn-register">Register</button>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <h1>Detect Plagiarism Instantly with PlagNet</h1>
+    <p>Upload your text or document, and get instant insights and similarity reports.</p>
+    <button class="btn-start"><a href="index.html">Get Started</a></button>
+  </section>
+
+  <section class="about" id="about">
+    <div class="about-left">
+      <h2 class="about-title hover-area">
+        <span class="about-line">About</span>
+        <span class="highlight">PlagNet</span>
+        <div class="underline"></div>
+      </h2>
+    </div>
+    <div class="about-right">
+      <p>
+        <strong>PlagNet</strong> is your trusted partner in ensuring originality and academic integrity. Our smart plagiarism detection engine compares your content against an ever-growing global database to identify similarities in seconds. Whether you're a student safeguarding your thesis, a professor reviewing assignments, or a professional publishing content—PlagNet keeps your work authentic, reliable, and 100% original.
+      </p>
+      <p style="margin-top: 20px;">
+        Step into a future of trust, transparency, and uncompromised creativity. <em>Experience the difference with PlagNet.</em>
+      </p>
+    </div>
+  </section>
+</body>
+</html>
