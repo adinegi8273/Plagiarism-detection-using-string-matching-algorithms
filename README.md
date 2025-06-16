@@ -98,6 +98,23 @@ npm install
 # Start the backend server
 node app.js
 
+# File structure
+
+project-root/
+├── index.html
+├── ai.py
+├── rabin_carp.py
+├── lcs.py
+├── kmp.py
+├── app.js
+└── public/
+    ├── login.html
+    ├── plag.html
+    ├── register.html
+    └── visualization.html
+
+
+
 # Start frontend (if separate)
 open index.html in browser or use live-server
 📧 Contact
