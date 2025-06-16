@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Plagiarism Detection</title>
+  <link href="https://fonts.googleapis.com/css?family=Inter:400,600,700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(to right, #6a11cb, #2575fc);
+      color: white;
+      min-height: 100vh;
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    .main-section {
+      max-width: 1200px;
+      margin: 60px auto 0 auto;
+      padding: 0 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 80px;
+    }
+    .detection-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: stretch;
+      gap: 60px;
+      margin-bottom: 0;
+      flex-wrap: wrap;
+    }
+    .info-block {
+      flex: 2;
+      color: #e0e0ff;
+      font-size: 1.15rem;
+      line-height: 1.8;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 40px 0 40px 0;
+      min-width: 320px;
+    }
+    .info-block h2 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin-bottom: 22px;
+      color: white;
+      letter-spacing: 1px;
+    }
+    .highlight {
+      background: linear-gradient(to right, #ffd700, #ff8800);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 700;
+    }
+    .upload-card {
+      flex: 1;
+      background: rgba(255,255,255,0.07);
+      border-radius: 18px;
+      padding: 40px 30px 32px 30px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 290px;
+      box-shadow: 0 4px 32px rgba(44,62,80,0.07);
+      border: 1.5px solid rgba(255,255,255,0.13);
+      margin-bottom: 0;
+    }
+    .upload-card h3 {
+      color: #ffd700;
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 18px;
+      letter-spacing: 1px;
+    }
+    .dropbox {
+      width: 100%;
+      border: 2px dashed #ffd700;
+      border-radius: 8px;
+      background-color: rgba(255,255,255,0.10);
+      padding: 30px 0 20px 0;
+      text-align: center;
+      color: #ffd700;
+      font-size: 1.07rem;
+      margin-bottom: 18px;
+      transition: border-color 0.3s;
+      cursor: pointer;
+      position: relative;
+    }
+    .dropbox input[type="file"] {
+      opacity: 0;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      left: 0; top: 0;
+      cursor: pointer;
+    }
+    .dropbox:hover, .dropbox:focus-within {
+      border-color: #ff8800;
+      background-color: rgba(255,255,255,0.18);
+    }
+    .upload-card button[type="submit"] {
+      margin-top: 6px;
+      padding: 12px 0;
+      background-color: #ffd700;
+      color: #333;
+      border: none;
+      font-size: 1.1rem;
+      font-weight: bold;
+      border-radius: 6px;
+      cursor: pointer;
+      width: 100%;
+      transition: background-color 0.3s, transform 0.2s;
+      box-shadow: 0 4px 16px rgba(44,62,80,0.10);
+    }
+    .upload-card button[type="submit"]:hover {
+      background-color: #e6c200;
+      color: #222;
+      transform: translateY(-2px);
+    }
+    .centered-textarea-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0 auto 40px auto;
+    }
+    .centered-textarea {
+      width: 700px;
+      min-width: 260px;
+      max-width: 95vw;
+      min-height: 220px;
+      max-height: 350px;
+      padding: 18px 20px;
+      border-radius: 12px;
+      border: 2px solid #ffd700;
+      background: rgba(255,255,255,0.10);
+      color: #fff;
+      font-size: 1.09rem;
+      font-family: 'Inter', sans-serif;
+      resize: vertical;
+      box-shadow: 0 4px 24px rgba(44,62,80,0.10);
+      outline: none;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    .centered-textarea:focus {
+      border-color: #ff8800;
+      box-shadow: 0 6px 32px rgba(255, 136, 0, 0.13);
+      background: rgba(255,255,255,0.16);
+    }
+    .view-analysis-btn {
+      display: block;
+      margin: 60px auto 0 auto;
+      background: linear-gradient(90deg, #ffd700 0%, #ff8800 100%); 
+      color: #1a202c;
+      font-size: 1.18rem;
+      font-weight: 700;
+      border: none;
+      border-radius: 32px;
+      padding: 18px 54px;
+      cursor: pointer;
+      box-shadow: 0 6px 32px rgba(44,62,80,0.17);
+      letter-spacing: 1px;
+      transition: background 0.3s, transform 0.2s, box-shadow 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .view-analysis-btn::after {
+      content: "→";
+      margin-left: 16px;
+      font-size: 1.3rem;
+      vertical-align: middle;
+      transition: margin-left 0.3s;
+    }
+    .view-analysis-btn:hover {
+      background: linear-gradient(90deg, #ff8800 0%, #ffd700 100%);
+      transform: translateY(-3px) scale(1.04);
+      box-shadow: 0 12px 36px rgba(44,62,80,0.22);
+    }
+    .view-analysis-btn:hover::after {
+      margin-left: 24px;
+    }
+    @media (max-width: 1100px) {
+      .detection-row { flex-direction: column; gap: 36px; }
+      .info-block, .upload-card { max-width: 98vw; }
+      .centered-textarea { width: 98vw; }
+    }
+    @media (max-width: 700px) {
+      .main-section { padding: 0 8px; }
+      .info-block, .upload-card { padding: 18px 8px; }
+      .info-block h2 { font-size: 1.4rem; }
+      .upload-card h3 { font-size: 1.08rem; }
+      .centered-textarea { width: 98vw; min-width: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="main-section">
+
+    <!-- AI Plagiarism Detection Section: text left, card right -->
+    <div class="detection-row">
+      <div class="info-block">
+        <h2>AI Plagiarism Detection <span class="highlight">(Random Forests Based)</span></h2>
+        <p>
+          Our plagiarism detection system employs stylometric analysis combined with a Random Forest machine learning model to identify plagiarized content. It extracts key textual features such as average sentence length, vocabulary richness, and average word length from the input text and compares these against a database of known plagiarized and original samples. The system uses these features to train a Random Forest classifier, which predicts whether the input text is plagiarized or original. For detected plagiarism, it further identifies matching lines based on feature similarity using Euclidean distance, providing a plagiarism percentage. This approach offers a fast and interpretable method for plagiarism detection, focusing on stylistic patterns rather than deep semantic analysis.
+        </p>
+      </div>
+      <div class="upload-card">
+        <h3>Upload for AI Detection</h3>
+        <form id="aiForm" action="/upload-ai" method="post" enctype="multipart/form-data">
+          <div class="dropbox" tabindex="0">
+            <span>Drag &amp; drop or click to upload (.pdf, .doc, .txt)</span>
+            <input type="file" name="fileupload" accept=".pdf,.doc,.txt" required>
+          </div>
+          <button type="submit">Analyze with AI</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- String Matching Section: card left, text right -->
+    <div class="detection-row">
+      <div class="upload-card">
+        <h3>Upload for String Matching</h3>
+        <form id="stringMatchForm" action="/upload-string" method="post" enctype="multipart/form-data">
+          <div class="dropbox" tabindex="0">
+            <span>Drag &amp; drop or click to upload (.pdf, .doc, .txt)</span>
+            <input type="file" name="fileupload" accept=".pdf,.doc,.txt" required>
+          </div>
+          <button type="submit">Analyze with String Matching</button>
+        </form>
+      </div>
+      <div class="info-block">
+        <h2>String Matching Algorithms <span class="highlight">(Rabin-Karp, KMP, LCS)</span></h2>
+        <p>
+          Our string matching system uses Rabin-Karp, KMP, and LCS algorithms for efficient plagiarism detection. Rabin-Karp rapidly matches substrings using rolling hashes, KMP searches patterns in linear time, and LCS finds longest matching word sequences to detect paraphrasing. The system preprocesses text with stemming and tokenization, scores matches, and highlights results. All processing is secure and fast, suitable for academic and professional use.
+        </p>
+      </div>
+    </div>
+
+    <!-- Centered Textarea for ALL Results -->
+    <div class="centered-textarea-container">
+      <textarea
+        id="stringResultArea"
+        class="centered-textarea"
+        rows="12"
+        placeholder="Detection results will appear here..."
+        readonly
+      ></textarea>
+    </div>
+
+    <!-- View Analysis Button -->
+    <div style="text-align:center; margin-top:40px;">
+      <a href="visualization.html">
+        <button class="view-analysis-btn" id="viewDetailsBtn" type="button">
+          View Details
+        </button>
+      </a>
+    </div>
+  </div>
+
+  <script>
+    // AJAX for string matching form
+    document.getElementById('stringMatchForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const formData = new FormData(this);
+      const response = await fetch('/upload-string', {
+        method: 'POST',
+        body: formData
+      });
+      const result = await response.text();
+      document.getElementById('stringResultArea').value = result;
+    });
+
+    // AJAX for AI detection form
+    document.getElementById('aiForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const formData = new FormData(this);
+      const response = await fetch('/upload-ai', {
+        method: 'POST',
+        body: formData
+      });
+      const result = await response.text();
+      document.getElementById('stringResultArea').value = result;
+    });
+  </script>
+</body>
+</html>

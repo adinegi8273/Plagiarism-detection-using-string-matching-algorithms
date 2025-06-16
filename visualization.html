@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Plagiarism Detection Results</title>
+  <link href="https://fonts.googleapis.com/css?family=Inter:400,600,700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      background: linear-gradient(to right, #6a11cb, #2575fc);
+      font-family: 'Inter', sans-serif;
+      color: white;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 50px auto;
+      padding: 24px;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.07);
+      box-shadow: 0 6px 32px rgba(0,0,0,0.3);
+    }
+    h1 {
+      text-align: center;
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #ffd700;
+      margin-bottom: 40px;
+      letter-spacing: 1px;
+    }
+    .algo-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 40px;
+      margin-bottom: 50px;
+      flex-wrap: wrap;
+    }
+    .algo-block {
+      flex: 1;
+      min-width: 300px;
+      max-width: 480px;
+      border-radius: 16px;
+      padding: 20px;
+    }
+    .visual-block {
+      flex: 1;
+      min-width: 300px;
+      max-width: 480px;
+      background: rgba(255,255,255,0.08);
+      border: 2px solid #ffd700;
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 140px;
+    }
+    .algo-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #ffdd57;
+      margin-bottom: 12px;
+      text-align: center;
+    }
+    .algo-about {
+      font-size: 1rem;
+      background: rgba(255,255,255,0.1);
+      padding: 14px;
+      border-radius: 10px;
+      margin-bottom: 16px;
+      color: #f0f0f0;
+      line-height: 1.6;
+    }
+    .algo-textarea-label {
+      font-weight: 600;
+      font-size: 1rem;
+      margin-bottom: 6px;
+      color: #ffd700;
+    }
+    textarea {
+      width: 100%;
+      min-height: 100px;
+      border-radius: 12px;
+      border: 2px solid #ffd700;
+      background: rgba(255,255,255,0.10);
+      color: #fff;
+      font-size: 1.05rem;
+      font-family: 'Inter', sans-serif;
+      resize: vertical;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+      padding: 12px;
+      transition: border-color 0.3s ease, background 0.3s ease;
+    }
+    textarea:focus {
+      border-color: #ff8800;
+      background: rgba(255,255,255,0.16);
+      outline: none;
+    }
+    /* Make all charts the same size */
+    canvas {
+      width: 360px;
+      height: 180px;
+    }
+    @media (max-width: 900px) {
+      .algo-row {
+        flex-direction: column;
+        gap: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Plagiarism Detection Results</h1>
+
+    <!-- Rabin-Karp Row: Pie chart to the right -->
+    <div class="algo-row">
+      <div class="algo-block">
+        <div class="algo-title">Rabin-Karp</div>
+        <div class="algo-about">
+          The Rabin-Karp algorithm is a string-searching algorithm that uses hashing to find patterns in a text efficiently. It is particularly popular for plagiarism detection because it can quickly compare large documents by computing hash values for substrings and only performing detailed comparisons when hash matches are found. The algorithm uses a "rolling hash" to efficiently update the hash value as it slides through the text, making it suitable for large-scale text analysis. Its average time complexity is O(n + m), but can reach O(nm) in rare cases of hash collisions. Rabin-Karp is preferred when you want to search for multiple patterns or need to detect similarities in long documents[2][5][9].
+        </div>
+        <textarea id="rabin-karp-result" readonly></textarea>
+      </div>
+      <div class="visual-block">
+        <canvas id="pie-chart"></canvas>
+      </div>
+    </div>
+
+    <!-- KMP Row: Histogram to the left -->
+    <div class="algo-row">
+      <div class="visual-block">
+        <canvas id="histChart"></canvas>
+      </div>
+      <div class="algo-block">
+        <div class="algo-title">KMP (Knuth-Morris-Pratt)</div>
+        <div class="algo-about">
+          The Knuth-Morris-Pratt (KMP) algorithm is a pattern-matching algorithm that finds all occurrences of a pattern within a text in linear time, O(n + m), where n is the length of the text and m is the length of the pattern. KMP is efficient because it uses a precomputed "failure function" to avoid unnecessary comparisons. This function helps the algorithm skip ahead in the text when a mismatch occurs, making it much faster than brute-force methods for large texts. KMP is especially useful for plagiarism detection when you need to find exact matches or repeated patterns in documents, and is robust against repetitive or overlapping patterns[3].
+        </div>
+        <textarea id="kmp-result" readonly></textarea>
+      </div>
+    </div>
+
+    <!-- LCS Row: Bar graph to the right -->
+    <div class="algo-row">
+      <div class="algo-block">
+        <div class="algo-title">LCS (Longest Common Subsequence)</div>
+        <div class="algo-about">
+          The Longest Common Subsequence (LCS) algorithm finds the longest sequence of characters that appears in the same order in two sequences, but not necessarily consecutively. LCS is widely used in plagiarism detection because it can identify similarities even when the text has been reordered or slightly modified. The algorithm works by building a dynamic programming table to compare the sequences and trace back the longest matching subsequence. LCS is particularly effective for detecting paraphrasing or when the structure of the text has been changed, as it focuses on the order of elements rather than exact matches. Its time and space complexity are O(nm), where n and m are the lengths of the two sequences[4].
+        </div>
+        <textarea id="lcs-result" readonly></textarea>
+      </div>
+      <div class="visual-block">
+        <canvas id="bar-chart"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Helper to extract plagiarism percentage from output string
+    function extractPercent(output) {
+      if (typeof output !== 'string') output = String(output);
+      const match = output.match(/Plagiarism Detected:\s*([\d.]+)%/i);
+      return match ? parseFloat(match[1]) : 0;
+    }
+
+    // Fetch results from Node.js backend and populate text areas and charts
+    async function fetchResults() {
+      try {
+        const response = await fetch('/api/visualization');
+        if (!response.ok) throw new Error('Failed to fetch results');
+        const { rabinKarp, kmp, lcs, accuracies } = await response.json();
+        document.getElementById('rabin-karp-result').value = rabinKarp;
+        document.getElementById('kmp-result').value = kmp;
+        document.getElementById('lcs-result').value = lcs;
+
+        if (accuracies) {
+          // Chart data
+          const labels = ['Rabin-Karp', 'KMP', 'LCS'];
+          const percents = [
+            extractPercent(rabinKarp), // or use accuracies.rabinKarp if you prefer
+            extractPercent(kmp),       // or accuracies.kmp
+            extractPercent(lcs)        // or accuracies.lcs
+          ];
+
+          // KMP Bar Chart (Histogram-style, with border and shadow)
+          new Chart(document.getElementById('histChart'), {
+            type: 'bar',
+            data: {
+              labels: labels,
+              datasets: [{
+                label: 'Plagiarism % (KMP)',
+                backgroundColor: ['rgba(255, 215, 0, 0.7)', 'rgba(255, 136, 0, 0.7)', 'rgba(106, 17, 203, 0.7)'],
+                borderColor: ['#ffd700', '#ff8800', '#6a11cb'],
+                borderWidth: 2,
+                data: percents
+              }]
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              plugins: {
+                legend: { display: false },
+                title: { display: false }
+              },
+              scales: {
+                x: { ticks: { color: '#fff' } },
+                y: { beginAtZero: true, max: 100, ticks: { color: '#fff' } }
+              }
+            }
+          });
+
+          // Pie Chart
+          new Chart(document.getElementById('pie-chart'), {
+            type: 'pie',
+            data: {
+              labels: labels,
+              datasets: [{
+                backgroundColor: ['#ffd700', '#ff8800', '#6a11cb'],
+                data: percents
+              }]
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              plugins: {
+                legend: { display: true, position: 'bottom', labels: { color: '#fff' }},
+                title: { display: false }
+              }
+            }
+          });
+
+          // LCS Bar Chart (different style)
+          new Chart(document.getElementById('bar-chart'), {
+            type: 'bar',
+            data: {
+              labels: labels,
+              datasets: [{
+                label: 'Plagiarism % (LCS)',
+                backgroundColor: ['#ffd700', '#ff8800', '#6a11cb'],
+                borderColor: ['#ffd700', '#ff8800', '#6a11cb'],
+                borderWidth: 1,
+                data: percents
+              }]
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              plugins: {
+                legend: { display: false },
+                title: { display: false }
+              },
+              scales: {
+                x: { ticks: { color: '#fff' } },
+                y: { beginAtZero: true, max: 100, ticks: { color: '#fff' } }
+              }
+            }
+          });
+        }
+      } catch (err) {
+        alert("Error fetching visualization data: " + err);
+      }
+    }
+    // Fetch results on page load
+    fetchResults();
+  </script>
+</body>
+</html>

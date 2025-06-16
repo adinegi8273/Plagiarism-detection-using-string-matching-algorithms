@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PlagNet</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(to right, #6a11cb, #2575fc);
+      color: white;
+      min-height: 100vh;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 50px;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      font-size: 2rem;
+      font-weight: 700;
+      color: white;
+    }
+
+    .navbar {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 25px;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: white;
+      font-weight: 500;
+      font-size: 1rem;
+      transition: color 0.3s ease;
+    }
+
+    nav ul li a:hover {
+      color: #ffd700;
+    }
+
+    .auth-buttons {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .btn-login {
+      background-color: transparent;
+      color: white;
+      border: 2px solid white;
+    }
+
+    .btn-login:hover {
+      background-color: white;
+      color: #2575fc;
+    }
+
+    .btn-register {
+      background-color: #ffd700;
+      color: #333;
+    }
+
+    .btn-register:hover {
+      background-color: #e6c200;
+    }
+
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 100px 30px;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      color: white;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      max-width: 700px;
+      line-height: 1.6;
+    }
+
+    .btn-start {
+      margin-top: 30px;
+      background-color: #ffd700;
+      color: #333;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn-start:hover {
+      background-color: #e6c200;
+    }
+
+    .btn-start a {
+      color: #333;
+      text-decoration: none;
+    }
+
+    /* About Section */
+    .about {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 70px 50px;
+      gap: 50px;
+      color: white;
+      background: rgba(255, 255, 255, 0.05);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(8px);
+    }
+
+    .about-left {
+      flex: 1;
+    }
+
+    .about-title {
+      font-size: 3.5rem;
+      font-weight: 700;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .about-line {
+      color: white;
+    }
+
+    .highlight {
+      background: linear-gradient(to right, #ffd700, #ff8800);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .underline {
+      height: 5px;
+      width: 120px;
+      background: #ffd700;
+      border-radius: 10px;
+      margin-top: 10px;
+      transition: transform 0.4s ease;
+    }
+
+    .hover-area:hover .underline {
+      transform: translateX(40px);
+    }
+
+    .about-right {
+      flex: 2;
+      font-size: 1.15rem;
+      line-height: 1.8;
+      color: #e0e0ff;
+    }
+
+    /* Features Section */
+    .features {
+      padding: 70px 50px;
+      color: white;
+      background: rgba(255, 255, 255, 0.03);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .features-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 40px;
+      text-align: center;
+      position: relative;
+    }
+
+    .features-title::after {
+      content: '';
+      display: block;
+      width: 100px;
+      height: 4px;
+      background: #ffd700;
+      margin: 15px auto 0;
+      border-radius: 10px;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+    }
+
+    .feature-card {
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 15px;
+      padding: 25px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .feature-icon {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+      color: #ffd700;
+    }
+
+    .feature-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .feature-desc {
+      font-size: 1rem;
+      line-height: 1.6;
+      color: #e0e0ff;
+    }
+
+    /* Use Cases Section */
+    .use-cases {
+      padding: 70px 50px;
+      color: white;
+      background: rgba(255, 255, 255, 0.06);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .use-cases-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 40px;
+      text-align: center;
+      position: relative;
+    }
+
+    .use-cases-title::after {
+      content: '';
+      display: block;
+      width: 100px;
+      height: 4px;
+      background: #ffd700;
+      margin: 15px auto 0;
+      border-radius: 10px;
+    }
+
+    .use-cases-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+    }
+
+    .use-case-card {
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 15px;
+      padding: 25px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .use-case-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .use-case-icon {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+      color: #ffd700;
+    }
+
+    .use-case-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .use-case-desc {
+      font-size: 1rem;
+      line-height: 1.6;
+      color: #e0e0ff;
+    }
+
+    /* How It Works Section */
+    .how-it-works {
+      padding: 70px 50px;
+      color: white;
+      background: rgba(255, 255, 255, 0.03);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .how-it-works-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 40px;
+      text-align: center;
+      position: relative;
+    }
+
+    .how-it-works-title::after {
+      content: '';
+      display: block;
+      width: 100px;
+      height: 4px;
+      background: #ffd700;
+      margin: 15px auto 0;
+      border-radius: 10px;
+    }
+
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .step {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 15px;
+      padding: 25px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .step:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+    }
+
+    .step-number {
+      font-size: 1.5rem;
+      font-weight: 700;
+      background: #ffd700;
+      color: #333;
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .step-content h3 {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .step-content p {
+      font-size: 1rem;
+      line-height: 1.6;
+      color: #e0e0ff;
+    }
+
+    /* Footer */
+    footer {
+      padding: 50px;
+      background: rgba(0, 0, 0, 0.2);
+      color: #e0e0ff;
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      color: #e0e0ff;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .footer-links a:hover {
+      color: #ffd700;
+    }
+
+    .footer-copyright {
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        width: 100%;
+      }
+
+      nav ul {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .auth-buttons {
+        flex-direction: column;
+        width: 100%;
+        align-items: flex-start;
+      }
+
+      .hero h1 {
+        font-size: 2.2rem;
+      }
+
+      .hero p {
+        font-size: 1rem;
+      }
+
+      .about {
+        flex-direction: column;
+        padding: 50px 30px;
+      }
+
+      .about-title {
+        font-size: 2.5rem;
+      }
+
+      .about-right {
+        font-size: 1rem;
+      }
+
+      .features, .use-cases, .how-it-works {
+        padding: 50px 30px;
+      }
+
+      .features-grid, .use-cases-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+  <header>
+    <div class="logo">PlagNet</div>
+    <div class="navbar">
+      <nav>
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#use-cases">Use Cases</a></li>
+          <li><a href="#how-it-works">How It Works</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="auth-buttons">
+        <button class="btn btn-login"><a href="public/login.html">Login</a></button>
+        <button class="btn btn-register"><a href="public/register.html">Register</a></button>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <h1>Detect Plagiarism Instantly with PlagNet</h1>
+    <p>Upload your text or document, and get instant insights and similarity reports. Protect your work and ensure originality with our advanced detection engine.</p>
+    <button class="btn-start"><a href="public/plag.html">Get Started</a></button>
+  </section>
+
+  <section class="about" id="about">
+    <div class="about-left">
+      <h2 class="about-title hover-area">
+        <span class="about-line">About</span>
+        <span class="highlight">PlagNet</span>
+        <div class="underline"></div>
+      </h2>
+    </div>
+    <div class="about-right">
+      <p>
+        <strong>PlagNet</strong> is your trusted partner in ensuring originality and academic integrity. Our smart plagiarism detection engine compares your content against an ever-growing database to identify similarities in seconds. Whether you're a student safeguarding your thesis, a professor reviewing assignments, or a professional publishing content—PlagNet keeps your work authentic, reliable, and 100% original.
+      </p>
+      <p style="margin-top: 20px;">
+        Our system uses advanced stylometric analysis and machine learning to detect subtle similarities and stylistic patterns that may indicate plagiarism. Step into a future of trust, transparency, and uncompromised creativity. <em>Experience the difference with PlagNet.</em>
+      </p>
+    </div>
+  </section>
+
+  <section class="features" id="features">
+    <h2 class="features-title">Key Features</h2>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fas fa-bolt"></i></div>
+        <h3 class="feature-title">Instant Detection</h3>
+        <p class="feature-desc">Get results in seconds with our lightning-fast analysis engine. No waiting, just instant insights.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+        <h3 class="feature-title">Robust Security</h3>
+        <p class="feature-desc">Your data is protected with industry-standard encryption and secure in-memory processing.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fas fa-chart-bar"></i></div>
+        <h3 class="feature-title">Detailed Reports</h3>
+        <p class="feature-desc">Receive comprehensive similarity reports with highlighted matches and plagiarism percentages.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fas fa-brain"></i></div>
+        <h3 class="feature-title">Smart Algorithms</h3>
+        <p class="feature-desc">Powered by machine learning and stylometric analysis for accurate and reliable detection.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fas fa-user-friends"></i></div>
+        <h3 class="feature-title">User-Friendly</h3>
+        <p class="feature-desc">Designed for everyone—students, educators, and professionals—with an intuitive interface.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fas fa-database"></i></div>
+        <h3 class="feature-title">Expanding Database</h3>
+        <p class="feature-desc">Regularly updated with new content to ensure the most accurate and up-to-date comparisons.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="use-cases" id="use-cases">
+    <h2 class="use-cases-title">Who Uses PlagNet?</h2>
+    <div class="use-cases-grid">
+      <div class="use-case-card">
+        <div class="use-case-icon"><i class="fas fa-graduation-cap"></i></div>
+        <h3 class="use-case-title">Students</h3>
+        <p class="use-case-desc">Ensure your essays, theses, and assignments are original before submission. Avoid unintentional plagiarism and academic penalties.</p>
+      </div>
+      <div class="use-case-card">
+        <div class="use-case-icon"><i class="fas fa-chalkboard-teacher"></i></div>
+        <h3 class="use-case-title">Educators</h3>
+        <p class="use-case-desc">Efficiently review student work, detect copied content, and maintain academic integrity in your classroom.</p>
+      </div>
+      <div class="use-case-card">
+        <div class="use-case-icon"><i class="fas fa-file-alt"></i></div>
+        <h3 class="use-case-title">Writers & Bloggers</h3>
+        <p class="use-case-desc">Protect your creative work from plagiarism and ensure your content remains unique and authentic.</p>
+      </div>
+      <div class="use-case-card">
+        <div class="use-case-icon"><i class="fas fa-briefcase"></i></div>
+        <h3 class="use-case-title">Professionals</h3>
+        <p class="use-case-desc">Verify the originality of reports, articles, and publications before sharing or publishing.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="how-it-works" id="how-it-works">
+    <h2 class="how-it-works-title">How It Works</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-number">1</div>
+        <div class="step-content">
+          <h3>Upload Your Text</h3>
+          <p>Simply paste your text or upload a document. Our system accepts a wide range of formats for your convenience.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-number">2</div>
+        <div class="step-content">
+          <h3>Advanced Analysis</h3>
+          <p>Our engine analyzes your content using stylometric features and machine learning to identify patterns and similarities.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-number">3</div>
+        <div class="step-content">
+          <h3>Compare Against Database</h3>
+          <p>Your text is compared against our extensive database of known sources to detect potential matches.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-number">4</div>
+        <div class="step-content">
+          <h3>Receive Your Report</h3>
+          <p>Get a detailed report highlighting similarities, matching lines, and a plagiarism percentage—all in seconds.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer id="contact">
+    <div class="footer-links">
+      <a href="#">Home</a>
+      <a href="#about">About</a>
+      <a href="#features">Features</a>
+      <a href="#use-cases">Use Cases</a>
+      <a href="#how-it-works">How It Works</a>
+      <a href="#contact">Contact</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Service</a>
+    </div>
+    <p class="footer-copyright">© 2023 PlagNet. All rights reserved.</p>
+  </footer>
+</body>
+</html>
