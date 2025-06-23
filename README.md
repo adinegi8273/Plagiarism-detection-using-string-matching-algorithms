@@ -116,7 +116,8 @@ project-root/
 ```
 
 
-
+# Images
+ You can view my website's screenshots available in the images folder
 
 # Start frontend (if separate)
 open index.html in browser or use live-server
