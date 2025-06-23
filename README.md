@@ -100,6 +100,7 @@ node app.js
 
 # File structure
 
+```bash
 project-root/
 ├── index.html
 ├── ai.py
@@ -112,6 +113,8 @@ project-root/
     ├── plag.html
     ├── register.html
     └── visualization.html
+```
+
 
 
 
