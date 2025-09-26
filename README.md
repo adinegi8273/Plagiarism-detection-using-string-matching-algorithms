@@ -100,6 +100,7 @@ node app.js
 
 # File structure
 
+```bash
 project-root/
 ├── index.html
 ├── ai.py
@@ -112,8 +113,11 @@ project-root/
     ├── plag.html
     ├── register.html
     └── visualization.html
+```
 
 
+# Images
+ You can view my website's screenshots available in the images folder
 
 # Start frontend (if separate)
 open index.html in browser or use live-server
